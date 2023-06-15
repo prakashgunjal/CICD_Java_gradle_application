@@ -33,7 +33,7 @@ pipeline{
                     withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
                              sh '''
                                 docker build -t 34.100.233.81:8083/prakashapp:${VERSION} .
-                                docker login -u admin -p $docker_password 34.100.233.81:8083 
+                                docker login -u admin -p $docker_password 34.100.233.81:8083
                                 docker push  34.100.233.81:8083/prakashapp:${VERSION}
                                 docker rmi 34.100.233.81:8083/prakashapp:${VERSION}
                             '''
