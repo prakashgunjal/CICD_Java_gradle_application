@@ -1,6 +1,6 @@
 # this is multi stage 
 FROM openjdk:11 as base 
-WORKDIR /app
+WORKDIR /tmp
 COPY . . 
 RUN chmod +x gradlew
 RUN ./gradlew build 
