@@ -27,22 +27,22 @@ pipeline{
                 }  
             }
         }
-        #stage("docker build & docker push"){
+        stage("docker build & docker push"){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'Nexus_token', variable: 'Nexus_token')]) {
                             sh '''
-                                docker build -t 34.100.233.81:8083/prakashapp:${VERSION} .
-                                docker login -u admin -p $Nexus_token 34.100.233.81:8083
-                                docker push  34.100.233.81:8083/prakashapp:${VERSION}
-                                docker rmi 34.100.233.81:8083/prakashapp:${VERSION}
+                                docker build -t 34.93.71.130:8083/prakashapp:${VERSION} .
+                                docker login -u admin -p $Nexus_token 34.93.71.130:8083
+                                docker push  34.93.71.130:8083/prakashapp:${VERSION}
+                                docker rmi 34.93.71.130:8083/prakashapp:${VERSION}
                                 docker image prune -f
                             '''
                     }
                 }
             }
         }
-        #stage('indentifying misconfigs using datree in helm charts'){
+        stage('indentifying misconfigs using datree in helm charts'){
             steps{
                 script{
 
@@ -54,7 +54,7 @@ pipeline{
                 }
             }
         }
-        #stage("pushing the helm charts to nexus"){
+        stage("pushing the helm charts to nexus"){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
@@ -70,7 +70,7 @@ pipeline{
             }
         }
 
-        #stage('manual approval'){
+        stage('manual approval'){
             steps{
                 script{
                     timeout(10) {
@@ -81,7 +81,7 @@ pipeline{
             }
         }
 
-        #stage('Deploying application on k8s cluster') {
+        stage('Deploying application on k8s cluster') {
             steps {
                script{
                    withCredentials([kubeconfigFile(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG')]) {
@@ -93,7 +93,7 @@ pipeline{
             }
         }
 
-        #stage('verifying app deployment'){
+        stage('verifying app deployment'){
             steps{
                 script{
                      withCredentials([kubeconfigFile(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG')]) {
@@ -105,7 +105,7 @@ pipeline{
         }
     }
 
-    #post {
+    post {
 		always {
 			mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "deekshith.snsep@gmail.com";  
 		 }
