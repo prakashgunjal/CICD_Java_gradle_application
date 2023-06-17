@@ -1,6 +1,6 @@
 # this is multi stage 
 FROM openjdk:11
-WORKDIR /tmp
+WORKDIR /opt/gradle/CICD_Java_gradle_application
 COPY . . 
 RUN chmod +x gradlew
 RUN ./gradlew build 
