@@ -12,7 +12,7 @@ pipeline{
             }
             steps{
                 script{
-                    withCredentials([usernameColonPassword(credentialsId: 'SonarQuibe', variable: 'sonar')]) {
+                    withCredentials([string(credentialsId: 'SonarQubes', variable: 'SonarQuibe')]) {
                             sh 'chmod +x gradlew'
                             sh './gradlew sonarqube'
                     }
