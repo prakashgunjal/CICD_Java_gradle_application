@@ -4,7 +4,7 @@ pipeline{
         VERSION = "${env.BUILD_ID}"
     }
     stages{
-        stage("sonar quality startcheck"){
+        stage("sonar quality start check"){
             agent {
                 any {
                     image 'openjdk:11'
