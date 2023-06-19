@@ -26,8 +26,8 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'Nexus_token', variable: 'Nexus_token')]) {
-                            sh '''
+                    withCredentials([string(credentialsId: 'Nexus_Docker', variable: 'Nexus_Docker')]) {
+                                sh '''
                                 docker build -t 34.93.11.250:8083/prakashapp:${VERSION} .
                                 docker login -u admin -p $Nexus_token 34.93.11.250:8083
                                 docker push  34.93.11.250.81:8083/prakashapp:${VERSION}
