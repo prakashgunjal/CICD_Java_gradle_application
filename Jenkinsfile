@@ -19,11 +19,11 @@ pipeline{
 
                     timeout(2) {
                         }
-                      }
                     }
-                }  
-            }
+                }
+            }  
         }
+        
         stage("docker build & docker push"){
             steps{
                 script{
