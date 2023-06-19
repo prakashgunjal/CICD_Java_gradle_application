@@ -4,7 +4,7 @@ pipeline{
         VERSION = "${env.BUILD_ID}"
     }
     stages{
-        stage("sonar quality check"){
+        stage("sonar quality start check"){
             agent {
                 any {
                     image 'openjdk:11'
@@ -12,8 +12,7 @@ pipeline{
             }
             steps{
                 script{
-                    withSonarQubeEnv(credentialsId: 'sonar') {
-                    
+                    withSonarQubeEnv(credentialsId: 'SonarQube') {
                             sh 'chmod +x gradlew'
                             sh './gradlew sonarqube'
                     }
@@ -24,7 +23,6 @@ pipeline{
                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
                       }
                     }
-
                 }  
             }
         }
@@ -33,10 +31,10 @@ pipeline{
                 script{
                     withCredentials([string(credentialsId: 'Nexus_token', variable: 'Nexus_token')]) {
                             sh '''
-                                docker build -t 34.93.11.250:8083/prakashapp:${VERSION} .
-                                docker login -u admin -p $Nexus_token 34.93.11.250:8083
-                                docker push  34.93.11.250:8083/prakashapp:${VERSION}
-                                docker rmi 34.93.11.250:8083/prakashapp:${VERSION}
+                                docker build -t 34.100.233.81:8083/prakashapp:${VERSION} .
+                                docker login -u admin -p $Nexus_token 34.100.233.81:8083
+                                docker push  34.100.233.81:8083/prakashapp:${VERSION}
+                                docker rmi 34.100.233.81:8083/prakashapp:${VERSION}
                                 docker image prune -f
                             '''
                     }
@@ -105,10 +103,6 @@ pipeline{
             }
         }
     }
-
-    #post {
-		always {
-			mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "deekshith.snsep@gmail.com";  
-		 }
-	   }
 }
+
+
