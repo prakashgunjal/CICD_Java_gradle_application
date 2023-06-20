@@ -26,13 +26,13 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'DockerHub', variable: 'Docker')]) {
-                    
+                   withCredentials([string(credentialsId: 'NexusPasswrd', variable: 'NexusPass')]) {
+                        
                                 sh '''
-                                docker build -t 34.93.11.250:8083/prakashapp:${VERSION} .
-                                docker login -u admin -p $Docker 34.93.11.250:8083
-                                docker push  34.93.11.250:8083/prakashapp:${VERSION}
-                                docker rmi 34.93.11.250:8083/prakashapp:${VERSION}
+                                docker build -t 34.93.11.250:8083/Docker-Hosts:${VERSION} .
+                                docker login -u admin -p $NexusPass 34.93.11.250:8083
+                                docker push  34.93.11.250:8083/Docker-Hosts:${VERSION}
+                                docker rmi 34.93.11.250:8083/Docker-Hosts:${VERSION}
                                 docker image prune -f
                                 '''
                      }
