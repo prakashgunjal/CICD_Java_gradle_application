@@ -26,6 +26,7 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
+                    
                                 sh '''
                                 docker login -u admin -p Durva@0303 34.93.11.250:8083
                                 docker build -t 34.93.11.250:8083/prakashapp:${VERSION} .
@@ -33,9 +34,8 @@ pipeline{
                                 docker push  34.93.11.250:8083/prakashapp:${VERSION}
                                 docker rmi 34.93.11.250:8083/prakashapp:${VERSION}
                                 docker image prune -f
-                            '''
+                                '''
                      }
-                }
             }
         }
     }
