@@ -26,11 +26,11 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
+                    withCredentials([string(credentialsId: 'DockerHub', variable: 'Docker')]) {
                     
                                 sh '''
-                                docker login -u admin -p Durva@0303 34.93.11.250:8083
                                 docker build -t 34.93.11.250:8083/prakashapp:${VERSION} .
-                                docker login -u admin -p Durva@0303 34.93.11.250:8083
+                                docker login -u admin -p $Docker 34.93.11.250:8083
                                 docker push  34.93.11.250:8083/prakashapp:${VERSION}
                                 docker rmi 34.93.11.250:8083/prakashapp:${VERSION}
                                 docker image prune -f
