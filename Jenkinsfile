@@ -34,7 +34,7 @@ pipeline{
                                 docker push  34.93.11.250:8083/Docker-Hosts:${VERSION}
                                 docker rmi 34.93.11.250:8083/Docker-Hosts:${VERSION}
                                 docker image prune -f
-                                '''
+                            '''
                      }
                 }
             }
