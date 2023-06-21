@@ -12,8 +12,8 @@ pipeline{
                             
                                 sh '''
                                 docker build -t  prakshgunjal/cicdpipeline:${VERSION} .
-                                docker login -u admin -p $NexusPass 34.93.160.244:8081
-                                docker push  prakshgunjal/cicdpipeline:${VERSION}
+                                docker login -u admin -p $Docker 34.93.160.244:8081
+                                docker push prakshgunjal/cicdpipeline:${VERSION}
                                 docker rmi 34.93.160.244:8081/Docker-Hosts:${VERSION}
                                 docker image prune -f
                             '''
