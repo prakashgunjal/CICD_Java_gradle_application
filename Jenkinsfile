@@ -29,10 +29,10 @@ pipeline{
                    withCredentials([string(credentialsId: 'NexusPasswrd', variable: 'NexusPass')]) {
                         
                                 sh '''
-                                docker build -t  34.93.160.244:8083/Docker-Hosts:${VERSION} .
-                                docker login -u admin -p $NexusPass 34.93.160.244:8083
-                                docker push  34.93.160.244:8083/Docker-Hosts:${VERSION}
-                                docker rmi 34.93.160.244:8083/Docker-Hosts:${VERSION}
+                                docker build -t  34.93.160.244:8081/Docker-Hosts:${VERSION} .
+                                docker login -u admin -p $NexusPass 34.93.160.244:8081
+                                docker push  34.93.160.244:8081/Docker-Hosts:${VERSION}
+                                docker rmi 34.93.160.244:8081/Docker-Hosts:${VERSION}
                                 docker image prune -f
                             '''
                      }
