@@ -12,7 +12,7 @@ pipeline{
                             
                                 sh '''
                                 docker build -t  prakshgunjal/cicdpipeline:${VERSION} .
-                                docker login -u admin -p $Docker 34.93.160.244:8081
+                                docker login -u prakshgunjal -p Durva@0303
                                 docker push prakshgunjal/cicdpipeline:${VERSION}
                                 docker rmi 34.93.160.244:8081/Docker-Hosts:${VERSION}
                                 docker image prune -f
