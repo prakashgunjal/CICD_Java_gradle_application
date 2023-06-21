@@ -11,8 +11,8 @@ pipeline{
                    withCredentials([string(credentialsId: 'DockerHub', variable: 'Docker')]) {
                             
                                 sh '''
-                                docker build -t cicdpipeline:${VERSION} .
-                                docker login -u prakshgunjal -p Durva@0303
+                                docker build Dockerfile -t cicdpipeline:${VERSION} .
+                                docker login -u prakshgunjal -p $Docker
                                 docker push prakshgunjal/cicdpipeline:${VERSION}
                                 docker rmi 34.93.160.244:8081/Docker-Hosts:${VERSION}
                                 docker image prune -f
