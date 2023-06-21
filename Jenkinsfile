@@ -4,25 +4,7 @@ pipeline{
         VERSION = "${env.BUILD_ID}"
     }
     stages{
-        stage("sonar quality start check"){
-            agent {
-                any {
-                    image 'openjdk:11'
-                }
-            }
-            steps{
-                script{
-                    withSonarQubeEnv(credentialsId: 'SonarQube') {
-                            sh 'chmod +x gradlew'
-                            sh './gradlew sonarqube'
-                    }
-
-                    timeout(2) {
-                    }
-                }
-            }  
-        }
-        
+             
         stage("docker build & docker push"){
             steps{
                 script{
