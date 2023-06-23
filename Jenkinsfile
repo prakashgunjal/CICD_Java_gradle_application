@@ -8,11 +8,11 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                   withCredentials([usernamePassword(credentialsId: 'NexusId', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
+                   withCredentials([string(credentialsId: 'nexusse', variable: 'nexussecrate')]) {
     
                                 sh '''
                                 sudo docker build -t prakash:${VERSION} .
-                                sudo docker login -u $USERNAME -p $PASSWD 34.100.164.198:8083
+                                sudo docker login -u admin -p $nexussecrate 34.100.164.198:8083
                                 sudo docker push prakash:${VERSION}
                                 sudo docker rmi prakash:${VERSION}
                                 sudo docker image prune -f
