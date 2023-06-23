@@ -19,7 +19,21 @@ pipeline{
 
                 }  
             } 
-        }      
+        } 
+        stage("docker build & docker push"){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
+                             sh '''
+                                sudo docker build -t prakshgunjal/cicdpipeline:$BUILD_NUMBER .
+                                sudo docker login -u $USERNAME -p $PASSWD
+                                sudo docker push prakshgunjal/cicdpipeline:$BUILD_NUMBER
+                            '''
+                    }
+                }
+            }
+        }     
+
         stage('indentifying misconfigs using datree in helm charts'){
             steps{
                 script{
