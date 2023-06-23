@@ -23,8 +23,9 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
-                             sh '''
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
+    
+                                 sh '''
                                 sudo docker build -t prakshgunjal/cicdpipeline:$BUILD_NUMBER .
                                 sudo docker login -u $USERNAME -p $PASSWD
                                 sudo docker push prakshgunjal/cicdpipeline:$BUILD_NUMBER
