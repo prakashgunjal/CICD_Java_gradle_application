@@ -12,10 +12,10 @@ pipeline{
     
                                 sh '''
                                 sudo docker build -t prakshgunjal/cicdpipeline:$BUILD_NUMBER .
-                                docker login -u $USERNAME -p $PASSWD
-                                docker push prakshgunjal/cicdpipeline:${VERSION}
-                                docker rmi prakshgunjal/cicdpipeline:${VERSION}
-                                docker image prune -f
+                                sudo docker login -u $USERNAME -p $PASSWD
+                                sudo docker push prakshgunjal/cicdpipeline:${VERSION}
+                                sudo docker rmi prakshgunjal/cicdpipeline:${VERSION}
+                                sudo docker image prune -f
                             '''
                      }
                 }
