@@ -4,7 +4,13 @@ pipeline{
         VERSION = "${env.BUILD_ID}"
     }
     stages{
-        steps{
+        stage('sonar quality check') {
+            agent{
+                any {
+                    image 'openjdk:11'
+                }
+            }
+            steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                             sh 'chmod +x gradlew'
@@ -15,12 +21,12 @@ pipeline{
                       def qg = waitForQualityGate()
                       if (qg.status != 'OK') {
                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                      }
+                        }
                     }
 
                 }  
-            }
-        }       
+            } 
+        }      
         stage("docker build & docker push"){
             steps{
                 script{
@@ -43,13 +49,13 @@ pipeline{
 
                     dir('kubernetes/') {
                             sh 'helm datree test myapp/'
-                        }
                     }
                 }
             }
-        
         }
+     
     }
 }
+
 
 
