@@ -8,13 +8,13 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                   withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
+                   withCredentials([string(credentialsId: 'NexusPasswrd', variable: 'Nexus')]) {
     
                                 sh '''
-                                sudo docker build -t prakshgunjal/cicdpipeline:$BUILD_NUMBER .
-                                sudo docker login -u $USERNAME -p $PASSWD
-                                sudo docker push prakshgunjal/cicdpipeline:${VERSION}
-                                sudo docker rmi prakshgunjal/cicdpipeline:${VERSION}
+                                sudo docker build -t 34.100.164.198:8083/prakash:$BUILD_NUMBER .
+                                sudo docker login -u admin -p $Nexus
+                                sudo docker push 34.100.164.198/prakash:${VERSION}
+                                sudo docker rmi 34.100.164.198/prakash:${VERSION}
                                 sudo docker image prune -f
                             '''
                      }
