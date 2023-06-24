@@ -23,12 +23,12 @@ pipeline{
         stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
-    
+                   withCredentials([string(credentialsId: 'nexusse', variable: 'DockerNex')]) {
+        
                                  sh '''
-                                sudo docker build -t prakshgunjal/cicdpipeline:$BUILD_NUMBER .
-                                sudo docker login -u $USERNAME -p $PASSWD
-                                sudo docker push prakshgunjal/cicdpipeline:$BUILD_NUMBER
+                                sudo docker build -t 34.100.164.198:8083:$BUILD_NUMBER .
+                                sudo docker login -u admin -p $DockerNex 34.100.164.198:8083
+                                sudo docker push 34.100.164.198:8083:$BUILD_NUMBER
                             '''
                     }
                 }
