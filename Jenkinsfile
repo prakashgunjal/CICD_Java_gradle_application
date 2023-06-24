@@ -26,9 +26,9 @@ pipeline{
                    withCredentials([string(credentialsId: 'nexusse', variable: 'DockerNex')]) {
         
                                  sh '''
-                                sudo docker build -t 34.100.164.198:8083/prakash:${VERSION} .
+                                sudo docker build -t 34.93.168.181:8083/prakash:${VERSION} .
                                 sudo docker login -u admin -p $DockerNex 34.100.164.198:8083
-                                sudo docker push 34.100.164.198:8083/prakash:${VERSION}
+                                sudo docker push 34.93.168.181:8083/prakash:${VERSION}
                             '''
                     }
                 }
